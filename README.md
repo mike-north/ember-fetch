@@ -35,6 +35,9 @@ Available imports:
 import fetch, { Headers, Request, Response, AbortController } from 'fetch';
 ```
 
+### Use with TypeScript
+To use `ember-fetch` with TypeScript or enable editor's type support, add `"fetch": "ember-cli/ember-fetch"` to your app's `devDependencies`.
+
 ### Use with Ember Data
 To have Ember Data utilize `fetch` instead of jQuery.ajax to make calls to your backend, extend your project's `application` adapter with the `adapter-fetch` mixin.
 
@@ -65,7 +68,7 @@ export default {
 }
 ```
 
-For addon authors, if the addon supports Fastboot mode, `ember-fetch` should also be listed as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies). 
+For addon authors, if the addon supports Fastboot mode, `ember-fetch` should also be listed as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies).
 This is because Fastboot only invokes top-level addon's `updateFastBootManifest` ([detail](https://github.com/ember-fastboot/ember-cli-fastboot/issues/597)), thus `ember-fetch` has to be a top-level addon installed by the host app.
 
 ### Allow native fetch

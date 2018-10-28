@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 // We use a few different Broccoli plugins to build our trees:
 //
 // broccoli-templater: renders the contents of a file inside a template.
@@ -97,6 +98,14 @@ module.exports = {
         ]
       }
     });
+
+    // Detect `tsconfig.json` as the evidence user need type support
+    if (
+      fs.existsSync(path.join(app.project.root, 'tsconfig.json')) &&
+      !('fetch' in app.project.pkg.devDependencies)
+    ) {
+      app.project.ui.writeWarnLine('To use ember-fetch with TypeScript, please add devDependency "fetch": "ember-cli/ember-fetch"');
+    }
   },
 
   /*
