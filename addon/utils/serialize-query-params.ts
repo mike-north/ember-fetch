@@ -6,10 +6,12 @@ const RBRACKET = /\[\]$/;
  * @param {Object} queryParamsObject
  * @returns {String}
  */
-export function serializeQueryParams(queryParamsObject) {
-  var s = [];
+export function serializeQueryParams(queryParamsObject: {
+  [k: string]: string;
+}) {
+  var s: string[] = [];
 
-  function buildParams(prefix, obj) {
+  function buildParams(prefix: string, obj: any) {
     var i, len, key;
 
     if (prefix) {
@@ -18,7 +20,10 @@ export function serializeQueryParams(queryParamsObject) {
           if (RBRACKET.test(prefix)) {
             add(s, prefix, obj[i]);
           } else {
-            buildParams(prefix + '[' + (typeof obj[i] === 'object' ? i : '') + ']', obj[i]);
+            buildParams(
+              prefix + '[' + (typeof obj[i] === 'object' ? i : '') + ']',
+              obj[i]
+            );
           }
         }
       } else if (obj && String(obj) === '[object Object]') {
@@ -40,7 +45,9 @@ export function serializeQueryParams(queryParamsObject) {
     return s;
   }
 
-  return buildParams('', queryParamsObject).join('&').replace(/%20/g, '+');
+  return buildParams('', queryParamsObject)
+    .join('&')
+    .replace(/%20/g, '+');
 }
 
 /**
@@ -49,7 +56,7 @@ export function serializeQueryParams(queryParamsObject) {
  * @param {String} k
  * @param {String} v
  */
-function add(s, k, v) {
+function add(s: string[], k: string, v: string | (() => string)) {
   // Strip out keys with undefined value and replace null values with
   // empty strings (mimics jQuery.ajax)
   if (v === undefined) {
